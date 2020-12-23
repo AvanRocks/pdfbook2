@@ -15,6 +15,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     """
 
+# I modified this program to format the pages in order, 
+# instead of as booklet (which is out of order)
+
+# The vast majority of this program comes from upstream.
+# Credit to Johannes Neumann for this neat tool.
+# Check out his upstream repo if you haven't already
+#    https://github.com/jenom/pdfbook2
 
 import os
 import shutil
@@ -83,16 +90,16 @@ def booklify(name, opts):
                 "pdfcrop",
                 "--bbox-odd",
                 "{L} {B} {R} {T}".format(
-                    L=minLOdd - opts.innerMargin / 2,
+                    L=minLOdd - opts.outerMargin,
                     B=minT - opts.bottomMargin,
-                    R=maxROdd + opts.outerMargin,
+                    R=maxROdd + opts.innerMargin / 2,
                     T=maxB + opts.topMargin,
                 ),
                 "--bbox-even",
                 "{L} {B} {R} {T}".format(
-                    L=minLEven - opts.outerMargin,
+                    L=minLEven - opts.innerMargin / 2,
                     B=minT - opts.bottomMargin,
-                    R=maxREven + opts.innerMargin / 2,
+                    R=maxREven + opts.outerMargin,
                     T=maxB + opts.topMargin,
                 ),
                 "--resolution",
@@ -121,16 +128,20 @@ def booklify(name, opts):
         "--landscape",
         "--suffix",
         "book",
+        "--nup",
+        "2x1",
         tmpFile,
     ]
 
+    # Disable booklet option (from upstream repo)
+    #
     # add option signature if it is defined else booklet
-    if opts.signature != 0:
-        pdfJamCallList.append("--signature")
-        pdfJamCallList.append(repr(opts.signature))
-    else:
-        pdfJamCallList.append("--booklet")
-        pdfJamCallList.append("true")
+    #if opts.signature != 0:
+        #pdfJamCallList.append("--signature")
+        #pdfJamCallList.append(repr(opts.signature))
+    #else:
+        #pdfJamCallList.append("--booklet")
+        #pdfJamCallList.append("true")
 
     # add option --paper to call
     if opts.paper is not None:
