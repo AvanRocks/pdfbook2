@@ -1,4 +1,15 @@
-# pdfbook2 - transform pdf files to booklets
+# pdfbook2 - transform pdf files to non-foldable booklets
+
+Create neat-looking non-foldable booklets with custom margins and **crop out
+unecessary whitespace**.
+
+Note: By "non-foldable booklet", I mean a booklet-style format with 2 pages on
+each side of paper, but usable without folding the papers into halves.
+
+If you want to create regular "foldable" booklets, check out the upstream repo,
+or the master branch on this repo.
+
+Upstream:
 
     pdfbook2 v1.4 (https://github.com/jenom/pdfbook2)
     (c) 2015 - 2020 Johannes Neumann (http://www.neumannjo.de)
@@ -7,12 +18,20 @@
     
 ## DESCRIPTION
 
-    Create print-ready PDF files from some INPUT PDF files for booklet printing.
-    The resulting files need to be printed in landscape/long edge double sided
+		Create print-ready PDF files from some INPUT PDF files for booklet-style
+		printing, but without the need to fold the papers in half. Simply print the
+		outputted pdf file, staple the top-left corner and flip through the pages
+		as you would a normal stack of papers. The pages will be in order.
+
+		The advantage of this is that you will not need to fold the paper (like a
+		booklet), which is useful if your pdf has many pages and folding would be
+		unfeasable. You also don't need a large stapler for this style of formatting.
+
+		The resulting files need to be printed in landscape/long edge double sided
     printing. The default paper format depends on the locale and is choosen by
     pdfjam. It can be set with the --paper option. 
     
-    Before the pdf is composed the INPUT file is cropped to the relevant area in
+    Before the pdf is composed the INPUT file is **cropped** to the relevant area in
     order to discard unnecessary white spaces. In this process, all pages are
     cropped to the same dimensions. Extra margins can be defined at the edges of 
     the booklet and in the middle where the binding occurs.
@@ -48,7 +67,7 @@
     
 ## EXAMPLES
 
-    To simply create a booklet from input.pdf you can use
+    To simply create a non-foldable booklet from input.pdf you can use
         
         pdfbook2 input.pdf
         
@@ -70,6 +89,9 @@
         pdfbook2 input1.pdf input2.pdf
         
     which will result in input1-book.pdf and input2-book.pdf.
+
+		Use the -o, -i, -t, and -b options to control margins to your liking
+		(See options below for more info)
     
 ## USAGE
 
@@ -111,32 +133,3 @@
                 Same as --signature
         --resolution=INT
                 Resolution used by ghostscript in bp (default: 72)
-
-## CHANGELOG
-
-    1.4 2020/01/20
-    
-        -   migration to Python 3
-        -   fixed bug if the input document had only one page
-        -   fix for signature option not working
-
-    1.3 2019/08/12
-
-        -    removed wait after popen to prevent deadlock with very large documents
-
-    1.2 2015/06/03
-        
-        -   added man page
-
-    1.1 2015/06/01
-        
-        -   added resolution, signature, no-crop options
-        -   better handling of input files with different margins on odd and 
-            even pages
-        -   added short options
-        -   speedup for bound calculations and cropping by setting ghostscript
-            resolution to 72 (ref. --resolution option)
-
-    1.0 2015/05/27 
-        
-        -   initial version
