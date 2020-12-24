@@ -18,16 +18,16 @@ Upstream:
     
 ## DESCRIPTION
 
-		Create print-ready PDF files from some INPUT PDF files for booklet-style
-		printing, but without the need to fold the papers in half. Simply print the
-		outputted pdf file, staple the top-left corner and flip through the pages
-		as you would a normal stack of papers. The pages will be in order.
-
-		The advantage of this is that you will not need to fold the paper (like a
-		booklet), which is useful if your pdf has many pages and folding would be
-		unfeasable. You also don't need a large stapler for this style of formatting.
-
-		The resulting files need to be printed in landscape/long edge double sided
+    Create print-ready PDF files from some INPUT PDF files for booklet-style
+    printing, but without the need to fold the papers in half. Simply print the
+    outputted pdf file, staple the top-left corner and flip through the pages
+    as you would a normal stack of papers. The pages will be in order.
+    
+    The advantage of this is that you will not need to fold the paper (like a
+    booklet), which is useful if your pdf has many pages and folding would be
+    unfeasable. You also don't need a large stapler for this style of formatting.
+    
+    The resulting files need to be printed in landscape/long edge double sided
     printing. The default paper format depends on the locale and is choosen by
     pdfjam. It can be set with the --paper option. 
     
