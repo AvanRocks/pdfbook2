@@ -62,16 +62,29 @@ def booklify(name, opts):
         lines = out.splitlines()
         bboxes = [s[len(bboxName) + 1 :] for s in lines if s.startswith(bboxName)]
         bounds = [[float(x) for x in bbox.split()] for bbox in bboxes]
-        minLOdd = min([bound[0] for bound in bounds[::2]])
-        maxROdd = max([bound[2] for bound in bounds[::2]])
+
+        if opts.ignore_first:
+            if len(bboxes) > 2:
+                minLOdd = min([bound[0] for bound in bounds[2::2]])
+                maxROdd = max([bound[2] for bound in bounds[2::2]])
+        else:
+            minLOdd = min([bound[0] for bound in bounds[::2]])
+            maxROdd = max([bound[2] for bound in bounds[::2]])
+
         if len(bboxes) > 1:
             minLEven = min([bound[0] for bound in bounds[1::2]])
             maxREven = max([bound[2] for bound in bounds[1::2]])
         else:
             minLEven = minLOdd
             maxREven = maxROdd
-        minT = min([bound[1] for bound in bounds])
-        maxB = max([bound[3] for bound in bounds])
+
+        if opts.ignore_first:
+            print('yes')
+            minT = min([bound[1] for bound in bounds[1:]])
+            maxB = max([bound[3] for bound in bounds[1:]])
+        else:
+            minT = min([bound[1] for bound in bounds])
+            maxB = max([bound[3] for bound in bounds])
 
         widthOdd = maxROdd - minLOdd
         widthEven = maxREven - minLEven
@@ -238,6 +251,14 @@ if __name__ == "__main__":
         action="store_false",
         help="Prevent the cropping to the content area",
         default=True,
+    )
+    generalGroup.add_option(
+        "-f",
+        "--ignore-first",
+        dest="ignore_first",
+        action="store_true",
+        help="Ignore the first page of the pdf when calculating bounding boxes",
+        default=False,
     )
     parser.add_option_group(generalGroup)
 

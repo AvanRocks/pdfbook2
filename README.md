@@ -111,6 +111,9 @@ Upstream:
                 Format the booklet for short-edge double-sided printing
         --no-crop, -n
                 Prevent the cropping to the content area
+				--ignore-first, -f
+                Ignore the first page of the pdf when calculating bounding
+                boxes
 
     MARGINS
 
